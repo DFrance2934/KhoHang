@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5458b0503e4742c2a01c9df3f5f8e03a" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="KHOHANG.tb_DVT" Width="1.5" PointX="6.875" PointY="0.5" />
+        <EntityTypeShape EntityType="KHOHANG.tb_HANGHOA" Width="1.5" PointX="2.625" PointY="3.5" />
+        <EntityTypeShape EntityType="KHOHANG.tb_HOADON" Width="1.5" PointX="6.75" PointY="7" />
+        <EntityTypeShape EntityType="KHOHANG.tb_HOADON_CT" Width="1.5" PointX="7" PointY="2.25" />
+        <EntityTypeShape EntityType="KHOHANG.tb_KHACHHANG" Width="1.5" PointX="3" PointY="7.375" />
+        <EntityTypeShape EntityType="KHOHANG.tb_KHO" Width="1.5" PointX="4.875" PointY="5" />
+        <EntityTypeShape EntityType="KHOHANG.tb_NHACUNGCAP" Width="1.5" PointX="0.5" PointY="2.875" />
+        <EntityTypeShape EntityType="KHOHANG.tb_NHAPHANG" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="KHOHANG.tb_NHOMHH" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="KHOHANG.tb_TONKHO" Width="1.5" PointX="4.625" PointY="0.5" />
+        <AssociationConnector Association="KHOHANG.FK_HANGHOA_NHACUNGCAP" />
+        <AssociationConnector Association="KHOHANG.FK_HANGHOA_NHOMHH" />
+        <AssociationConnector Association="KHOHANG.FK_HOADONCT_HANGHOA" />
+        <AssociationConnector Association="KHOHANG.FK_NHAPHANG_HANGHOA" />
+        <AssociationConnector Association="KHOHANG.FK_TONKHO_HANGHOA" />
+        <AssociationConnector Association="KHOHANG.FK_HOADON_KHACHHANG" />
+        <AssociationConnector Association="KHOHANG.FK_HOADONCT_HOADON" />
+        <AssociationConnector Association="KHOHANG.FK_HOADONCT_KHO" />
+        <AssociationConnector Association="KHOHANG.FK_TONKHO_KHO" />
+        <AssociationConnector Association="KHOHANG.FK_NHAPHANG_NHACUNGCAP" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KHOHANG.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_DVT">
+          <Key>
+            <PropertyRef Name="IDDVT" />
+          </Key>
+          <Property Name="IDDVT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENDVT" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_HANGHOA">
+          <Key>
+            <PropertyRef Name="IDHH" />
+          </Key>
+          <Property Name="IDHH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENHH" Type="nvarchar" MaxLength="500" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="MOTA" Type="nvarchar" MaxLength="2000" />
+          <Property Name="DISABLED" Type="bit" />
+          <Property Name="DVT" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDNCC" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDNHOM" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_HOADON">
+          <Key>
+            <PropertyRef Name="IDHD" />
+          </Key>
+          <Property Name="IDHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDKH" Type="int" Nullable="false" />
+          <Property Name="NGAYLAP" Type="datetime" />
+          <Property Name="TONGTIEN" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_HOADON_CT">
+          <Key>
+            <PropertyRef Name="IDCT" />
+          </Key>
+          <Property Name="IDCT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDHD" Type="int" Nullable="false" />
+          <Property Name="IDHH" Type="int" Nullable="false" />
+          <Property Name="IDKHO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="THANHTIEN" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_KHACHHANG">
+          <Key>
+            <PropertyRef Name="IDKH" />
+          </Key>
+          <Property Name="IDKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tb_KHO">
+          <Key>
+            <PropertyRef Name="IDKHO" />
+          </Key>
+          <Property Name="IDKHO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TENKHO" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="DISABLED" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_NHACUNGCAP">
+          <Key>
+            <PropertyRef Name="IDNCC" />
+          </Key>
+          <Property Name="IDNCC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TENNCC" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="DISABLED" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_NHAPHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDHH" Type="int" Nullable="false" />
+          <Property Name="IDNCC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDKHO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="NGAYNHAP" Type="datetime" />
+          <Property Name="DONGIA" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_NHOMHH">
+          <Key>
+            <PropertyRef Name="IDNHOM" />
+          </Key>
+          <Property Name="IDNHOM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENNHOMHH" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_TONKHO">
+          <Key>
+            <PropertyRef Name="IDKHO" />
+            <PropertyRef Name="IDHH" />
+          </Key>
+          <Property Name="IDKHO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDHH" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+        </EntityType>
+        <Association Name="FK_HANGHOA_NHACUNGCAP">
+          <End Role="tb_NHACUNGCAP" Type="Self.tb_NHACUNGCAP" Multiplicity="0..1" />
+          <End Role="tb_HANGHOA" Type="Self.tb_HANGHOA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHACUNGCAP">
+              <PropertyRef Name="IDNCC" />
+            </Principal>
+            <Dependent Role="tb_HANGHOA">
+              <PropertyRef Name="IDNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HANGHOA_NHOMHH">
+          <End Role="tb_NHOMHH" Type="Self.tb_NHOMHH" Multiplicity="0..1" />
+          <End Role="tb_HANGHOA" Type="Self.tb_HANGHOA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHOMHH">
+              <PropertyRef Name="IDNHOM" />
+            </Principal>
+            <Dependent Role="tb_HANGHOA">
+              <PropertyRef Name="IDNHOM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADON_KHACHHANG">
+          <End Role="tb_KHACHHANG" Type="Self.tb_KHACHHANG" Multiplicity="1" />
+          <End Role="tb_HOADON" Type="Self.tb_HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHACHHANG">
+              <PropertyRef Name="IDKH" />
+            </Principal>
+            <Dependent Role="tb_HOADON">
+              <PropertyRef Name="IDKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_HANGHOA">
+          <End Role="tb_HANGHOA" Type="Self.tb_HANGHOA" Multiplicity="1" />
+          <End Role="tb_HOADON_CT" Type="Self.tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_HOADON">
+          <End Role="tb_HOADON" Type="Self.tb_HOADON" Multiplicity="1" />
+          <End Role="tb_HOADON_CT" Type="Self.tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HOADON">
+              <PropertyRef Name="IDHD" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_KHO">
+          <End Role="tb_KHO" Type="Self.tb_KHO" Multiplicity="1" />
+          <End Role="tb_HOADON_CT" Type="Self.tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHO">
+              <PropertyRef Name="IDKHO" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHAPHANG_HANGHOA">
+          <End Role="tb_HANGHOA" Type="Self.tb_HANGHOA" Multiplicity="1" />
+          <End Role="tb_NHAPHANG" Type="Self.tb_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_NHAPHANG">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHAPHANG_NHACUNGCAP">
+          <End Role="tb_NHACUNGCAP" Type="Self.tb_NHACUNGCAP" Multiplicity="1" />
+          <End Role="tb_NHAPHANG" Type="Self.tb_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHACUNGCAP">
+              <PropertyRef Name="IDNCC" />
+            </Principal>
+            <Dependent Role="tb_NHAPHANG">
+              <PropertyRef Name="IDNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TONKHO_HANGHOA">
+          <End Role="tb_HANGHOA" Type="Self.tb_HANGHOA" Multiplicity="1" />
+          <End Role="tb_TONKHO" Type="Self.tb_TONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_TONKHO">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TONKHO_KHO">
+          <End Role="tb_KHO" Type="Self.tb_KHO" Multiplicity="1" />
+          <End Role="tb_TONKHO" Type="Self.tb_TONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHO">
+              <PropertyRef Name="IDKHO" />
+            </Principal>
+            <Dependent Role="tb_TONKHO">
+              <PropertyRef Name="IDKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KHOHANGStoreContainer">
+          <EntitySet Name="tb_DVT" EntityType="Self.tb_DVT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_HANGHOA" EntityType="Self.tb_HANGHOA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_HOADON" EntityType="Self.tb_HOADON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_HOADON_CT" EntityType="Self.tb_HOADON_CT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_KHACHHANG" EntityType="Self.tb_KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_KHO" EntityType="Self.tb_KHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_NHACUNGCAP" EntityType="Self.tb_NHACUNGCAP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_NHAPHANG" EntityType="Self.tb_NHAPHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_NHOMHH" EntityType="Self.tb_NHOMHH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_TONKHO" EntityType="Self.tb_TONKHO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HANGHOA_NHACUNGCAP" Association="Self.FK_HANGHOA_NHACUNGCAP">
+            <End Role="tb_NHACUNGCAP" EntitySet="tb_NHACUNGCAP" />
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HANGHOA_NHOMHH" Association="Self.FK_HANGHOA_NHOMHH">
+            <End Role="tb_NHOMHH" EntitySet="tb_NHOMHH" />
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADON_KHACHHANG" Association="Self.FK_HOADON_KHACHHANG">
+            <End Role="tb_KHACHHANG" EntitySet="tb_KHACHHANG" />
+            <End Role="tb_HOADON" EntitySet="tb_HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_HANGHOA" Association="Self.FK_HOADONCT_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_HOADON" Association="Self.FK_HOADONCT_HOADON">
+            <End Role="tb_HOADON" EntitySet="tb_HOADON" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_KHO" Association="Self.FK_HOADONCT_KHO">
+            <End Role="tb_KHO" EntitySet="tb_KHO" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHAPHANG_HANGHOA" Association="Self.FK_NHAPHANG_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_NHAPHANG" EntitySet="tb_NHAPHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHAPHANG_NHACUNGCAP" Association="Self.FK_NHAPHANG_NHACUNGCAP">
+            <End Role="tb_NHACUNGCAP" EntitySet="tb_NHACUNGCAP" />
+            <End Role="tb_NHAPHANG" EntitySet="tb_NHAPHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TONKHO_HANGHOA" Association="Self.FK_TONKHO_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_TONKHO" EntitySet="tb_TONKHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TONKHO_KHO" Association="Self.FK_TONKHO_KHO">
+            <End Role="tb_KHO" EntitySet="tb_KHO" />
+            <End Role="tb_TONKHO" EntitySet="tb_TONKHO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KHOHANG" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_DVT" EntityType="KHOHANG.tb_DVT" />
+          <EntitySet Name="tb_HANGHOA" EntityType="KHOHANG.tb_HANGHOA" />
+          <EntitySet Name="tb_HOADON" EntityType="KHOHANG.tb_HOADON" />
+          <EntitySet Name="tb_HOADON_CT" EntityType="KHOHANG.tb_HOADON_CT" />
+          <EntitySet Name="tb_KHACHHANG" EntityType="KHOHANG.tb_KHACHHANG" />
+          <EntitySet Name="tb_KHO" EntityType="KHOHANG.tb_KHO" />
+          <EntitySet Name="tb_NHACUNGCAP" EntityType="KHOHANG.tb_NHACUNGCAP" />
+          <EntitySet Name="tb_NHAPHANG" EntityType="KHOHANG.tb_NHAPHANG" />
+          <EntitySet Name="tb_NHOMHH" EntityType="KHOHANG.tb_NHOMHH" />
+          <EntitySet Name="tb_TONKHO" EntityType="KHOHANG.tb_TONKHO" />
+          <AssociationSet Name="FK_HANGHOA_NHACUNGCAP" Association="KHOHANG.FK_HANGHOA_NHACUNGCAP">
+            <End Role="tb_NHACUNGCAP" EntitySet="tb_NHACUNGCAP" />
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HANGHOA_NHOMHH" Association="KHOHANG.FK_HANGHOA_NHOMHH">
+            <End Role="tb_NHOMHH" EntitySet="tb_NHOMHH" />
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_HANGHOA" Association="KHOHANG.FK_HOADONCT_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHAPHANG_HANGHOA" Association="KHOHANG.FK_NHAPHANG_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_NHAPHANG" EntitySet="tb_NHAPHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TONKHO_HANGHOA" Association="KHOHANG.FK_TONKHO_HANGHOA">
+            <End Role="tb_HANGHOA" EntitySet="tb_HANGHOA" />
+            <End Role="tb_TONKHO" EntitySet="tb_TONKHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADON_KHACHHANG" Association="KHOHANG.FK_HOADON_KHACHHANG">
+            <End Role="tb_KHACHHANG" EntitySet="tb_KHACHHANG" />
+            <End Role="tb_HOADON" EntitySet="tb_HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_HOADON" Association="KHOHANG.FK_HOADONCT_HOADON">
+            <End Role="tb_HOADON" EntitySet="tb_HOADON" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONCT_KHO" Association="KHOHANG.FK_HOADONCT_KHO">
+            <End Role="tb_KHO" EntitySet="tb_KHO" />
+            <End Role="tb_HOADON_CT" EntitySet="tb_HOADON_CT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TONKHO_KHO" Association="KHOHANG.FK_TONKHO_KHO">
+            <End Role="tb_KHO" EntitySet="tb_KHO" />
+            <End Role="tb_TONKHO" EntitySet="tb_TONKHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHAPHANG_NHACUNGCAP" Association="KHOHANG.FK_NHAPHANG_NHACUNGCAP">
+            <End Role="tb_NHACUNGCAP" EntitySet="tb_NHACUNGCAP" />
+            <End Role="tb_NHAPHANG" EntitySet="tb_NHAPHANG" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tb_DVT">
+          <Key>
+            <PropertyRef Name="IDDVT" />
+          </Key>
+          <Property Name="IDDVT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENDVT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_HANGHOA">
+          <Key>
+            <PropertyRef Name="IDHH" />
+          </Key>
+          <Property Name="IDHH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENHH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="MOTA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <Property Name="DVT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDNCC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDNHOM" Type="Int32" />
+          <NavigationProperty Name="tb_NHACUNGCAP" Relationship="KHOHANG.FK_HANGHOA_NHACUNGCAP" FromRole="tb_HANGHOA" ToRole="tb_NHACUNGCAP" />
+          <NavigationProperty Name="tb_NHOMHH" Relationship="KHOHANG.FK_HANGHOA_NHOMHH" FromRole="tb_HANGHOA" ToRole="tb_NHOMHH" />
+          <NavigationProperty Name="tb_HOADON_CT" Relationship="KHOHANG.FK_HOADONCT_HANGHOA" FromRole="tb_HANGHOA" ToRole="tb_HOADON_CT" />
+          <NavigationProperty Name="tb_NHAPHANG" Relationship="KHOHANG.FK_NHAPHANG_HANGHOA" FromRole="tb_HANGHOA" ToRole="tb_NHAPHANG" />
+          <NavigationProperty Name="tb_TONKHO" Relationship="KHOHANG.FK_TONKHO_HANGHOA" FromRole="tb_HANGHOA" ToRole="tb_TONKHO" />
+        </EntityType>
+        <EntityType Name="tb_HOADON">
+          <Key>
+            <PropertyRef Name="IDHD" />
+          </Key>
+          <Property Name="IDHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDKH" Type="Int32" Nullable="false" />
+          <Property Name="NGAYLAP" Type="DateTime" Precision="3" />
+          <Property Name="TONGTIEN" Type="Double" />
+          <NavigationProperty Name="tb_KHACHHANG" Relationship="KHOHANG.FK_HOADON_KHACHHANG" FromRole="tb_HOADON" ToRole="tb_KHACHHANG" />
+          <NavigationProperty Name="tb_HOADON_CT" Relationship="KHOHANG.FK_HOADONCT_HOADON" FromRole="tb_HOADON" ToRole="tb_HOADON_CT" />
+        </EntityType>
+        <EntityType Name="tb_HOADON_CT">
+          <Key>
+            <PropertyRef Name="IDCT" />
+          </Key>
+          <Property Name="IDCT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDHD" Type="Int32" Nullable="false" />
+          <Property Name="IDHH" Type="Int32" Nullable="false" />
+          <Property Name="IDKHO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="THANHTIEN" Type="Double" />
+          <NavigationProperty Name="tb_HANGHOA" Relationship="KHOHANG.FK_HOADONCT_HANGHOA" FromRole="tb_HOADON_CT" ToRole="tb_HANGHOA" />
+          <NavigationProperty Name="tb_HOADON" Relationship="KHOHANG.FK_HOADONCT_HOADON" FromRole="tb_HOADON_CT" ToRole="tb_HOADON" />
+          <NavigationProperty Name="tb_KHO" Relationship="KHOHANG.FK_HOADONCT_KHO" FromRole="tb_HOADON_CT" ToRole="tb_KHO" />
+        </EntityType>
+        <EntityType Name="tb_KHACHHANG">
+          <Key>
+            <PropertyRef Name="IDKH" />
+          </Key>
+          <Property Name="IDKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_HOADON" Relationship="KHOHANG.FK_HOADON_KHACHHANG" FromRole="tb_KHACHHANG" ToRole="tb_HOADON" />
+        </EntityType>
+        <EntityType Name="tb_KHO">
+          <Key>
+            <PropertyRef Name="IDKHO" />
+          </Key>
+          <Property Name="IDKHO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TENKHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <NavigationProperty Name="tb_HOADON_CT" Relationship="KHOHANG.FK_HOADONCT_KHO" FromRole="tb_KHO" ToRole="tb_HOADON_CT" />
+          <NavigationProperty Name="tb_TONKHO" Relationship="KHOHANG.FK_TONKHO_KHO" FromRole="tb_KHO" ToRole="tb_TONKHO" />
+        </EntityType>
+        <EntityType Name="tb_NHACUNGCAP">
+          <Key>
+            <PropertyRef Name="IDNCC" />
+          </Key>
+          <Property Name="IDNCC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TENNCC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <NavigationProperty Name="tb_HANGHOA" Relationship="KHOHANG.FK_HANGHOA_NHACUNGCAP" FromRole="tb_NHACUNGCAP" ToRole="tb_HANGHOA" />
+          <NavigationProperty Name="tb_NHAPHANG" Relationship="KHOHANG.FK_NHAPHANG_NHACUNGCAP" FromRole="tb_NHACUNGCAP" ToRole="tb_NHAPHANG" />
+        </EntityType>
+        <EntityType Name="tb_NHAPHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDHH" Type="Int32" Nullable="false" />
+          <Property Name="IDNCC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDKHO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="NGAYNHAP" Type="DateTime" Precision="3" />
+          <Property Name="DONGIA" Type="Double" />
+          <NavigationProperty Name="tb_HANGHOA" Relationship="KHOHANG.FK_NHAPHANG_HANGHOA" FromRole="tb_NHAPHANG" ToRole="tb_HANGHOA" />
+          <NavigationProperty Name="tb_NHACUNGCAP" Relationship="KHOHANG.FK_NHAPHANG_NHACUNGCAP" FromRole="tb_NHAPHANG" ToRole="tb_NHACUNGCAP" />
+        </EntityType>
+        <EntityType Name="tb_NHOMHH">
+          <Key>
+            <PropertyRef Name="IDNHOM" />
+          </Key>
+          <Property Name="IDNHOM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENNHOMHH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_HANGHOA" Relationship="KHOHANG.FK_HANGHOA_NHOMHH" FromRole="tb_NHOMHH" ToRole="tb_HANGHOA" />
+        </EntityType>
+        <EntityType Name="tb_TONKHO">
+          <Key>
+            <PropertyRef Name="IDKHO" />
+            <PropertyRef Name="IDHH" />
+          </Key>
+          <Property Name="IDKHO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDHH" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="tb_HANGHOA" Relationship="KHOHANG.FK_TONKHO_HANGHOA" FromRole="tb_TONKHO" ToRole="tb_HANGHOA" />
+          <NavigationProperty Name="tb_KHO" Relationship="KHOHANG.FK_TONKHO_KHO" FromRole="tb_TONKHO" ToRole="tb_KHO" />
+        </EntityType>
+        <Association Name="FK_HANGHOA_NHACUNGCAP">
+          <End Type="KHOHANG.tb_NHACUNGCAP" Role="tb_NHACUNGCAP" Multiplicity="0..1" />
+          <End Type="KHOHANG.tb_HANGHOA" Role="tb_HANGHOA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHACUNGCAP">
+              <PropertyRef Name="IDNCC" />
+            </Principal>
+            <Dependent Role="tb_HANGHOA">
+              <PropertyRef Name="IDNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HANGHOA_NHOMHH">
+          <End Type="KHOHANG.tb_NHOMHH" Role="tb_NHOMHH" Multiplicity="0..1" />
+          <End Type="KHOHANG.tb_HANGHOA" Role="tb_HANGHOA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHOMHH">
+              <PropertyRef Name="IDNHOM" />
+            </Principal>
+            <Dependent Role="tb_HANGHOA">
+              <PropertyRef Name="IDNHOM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_HANGHOA">
+          <End Type="KHOHANG.tb_HANGHOA" Role="tb_HANGHOA" Multiplicity="1" />
+          <End Type="KHOHANG.tb_HOADON_CT" Role="tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHAPHANG_HANGHOA">
+          <End Type="KHOHANG.tb_HANGHOA" Role="tb_HANGHOA" Multiplicity="1" />
+          <End Type="KHOHANG.tb_NHAPHANG" Role="tb_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_NHAPHANG">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TONKHO_HANGHOA">
+          <End Type="KHOHANG.tb_HANGHOA" Role="tb_HANGHOA" Multiplicity="1" />
+          <End Type="KHOHANG.tb_TONKHO" Role="tb_TONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HANGHOA">
+              <PropertyRef Name="IDHH" />
+            </Principal>
+            <Dependent Role="tb_TONKHO">
+              <PropertyRef Name="IDHH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADON_KHACHHANG">
+          <End Type="KHOHANG.tb_KHACHHANG" Role="tb_KHACHHANG" Multiplicity="1" />
+          <End Type="KHOHANG.tb_HOADON" Role="tb_HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHACHHANG">
+              <PropertyRef Name="IDKH" />
+            </Principal>
+            <Dependent Role="tb_HOADON">
+              <PropertyRef Name="IDKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_HOADON">
+          <End Type="KHOHANG.tb_HOADON" Role="tb_HOADON" Multiplicity="1" />
+          <End Type="KHOHANG.tb_HOADON_CT" Role="tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_HOADON">
+              <PropertyRef Name="IDHD" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONCT_KHO">
+          <End Type="KHOHANG.tb_KHO" Role="tb_KHO" Multiplicity="1" />
+          <End Type="KHOHANG.tb_HOADON_CT" Role="tb_HOADON_CT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHO">
+              <PropertyRef Name="IDKHO" />
+            </Principal>
+            <Dependent Role="tb_HOADON_CT">
+              <PropertyRef Name="IDKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TONKHO_KHO">
+          <End Type="KHOHANG.tb_KHO" Role="tb_KHO" Multiplicity="1" />
+          <End Type="KHOHANG.tb_TONKHO" Role="tb_TONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_KHO">
+              <PropertyRef Name="IDKHO" />
+            </Principal>
+            <Dependent Role="tb_TONKHO">
+              <PropertyRef Name="IDKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NHAPHANG_NHACUNGCAP">
+          <End Type="KHOHANG.tb_NHACUNGCAP" Role="tb_NHACUNGCAP" Multiplicity="1" />
+          <End Type="KHOHANG.tb_NHAPHANG" Role="tb_NHAPHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_NHACUNGCAP">
+              <PropertyRef Name="IDNCC" />
+            </Principal>
+            <Dependent Role="tb_NHAPHANG">
+              <PropertyRef Name="IDNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KHOHANGStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="tb_DVT">
+            <EntityTypeMapping TypeName="KHOHANG.tb_DVT">
+              <MappingFragment StoreEntitySet="tb_DVT">
+                <ScalarProperty Name="TENDVT" ColumnName="TENDVT" />
+                <ScalarProperty Name="IDDVT" ColumnName="IDDVT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_HANGHOA">
+            <EntityTypeMapping TypeName="KHOHANG.tb_HANGHOA">
+              <MappingFragment StoreEntitySet="tb_HANGHOA">
+                <ScalarProperty Name="IDNHOM" ColumnName="IDNHOM" />
+                <ScalarProperty Name="IDNCC" ColumnName="IDNCC" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="TENHH" ColumnName="TENHH" />
+                <ScalarProperty Name="IDHH" ColumnName="IDHH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_HOADON">
+            <EntityTypeMapping TypeName="KHOHANG.tb_HOADON">
+              <MappingFragment StoreEntitySet="tb_HOADON">
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
+                <ScalarProperty Name="IDHD" ColumnName="IDHD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_HOADON_CT">
+            <EntityTypeMapping TypeName="KHOHANG.tb_HOADON_CT">
+              <MappingFragment StoreEntitySet="tb_HOADON_CT">
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="IDKHO" ColumnName="IDKHO" />
+                <ScalarProperty Name="IDHH" ColumnName="IDHH" />
+                <ScalarProperty Name="IDHD" ColumnName="IDHD" />
+                <ScalarProperty Name="IDCT" ColumnName="IDCT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_KHACHHANG">
+            <EntityTypeMapping TypeName="KHOHANG.tb_KHACHHANG">
+              <MappingFragment StoreEntitySet="tb_KHACHHANG">
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_KHO">
+            <EntityTypeMapping TypeName="KHOHANG.tb_KHO">
+              <MappingFragment StoreEntitySet="tb_KHO">
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
+                <ScalarProperty Name="IDKHO" ColumnName="IDKHO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_NHACUNGCAP">
+            <EntityTypeMapping TypeName="KHOHANG.tb_NHACUNGCAP">
+              <MappingFragment StoreEntitySet="tb_NHACUNGCAP">
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TENNCC" ColumnName="TENNCC" />
+                <ScalarProperty Name="IDNCC" ColumnName="IDNCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_NHAPHANG">
+            <EntityTypeMapping TypeName="KHOHANG.tb_NHAPHANG">
+              <MappingFragment StoreEntitySet="tb_NHAPHANG">
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="IDKHO" ColumnName="IDKHO" />
+                <ScalarProperty Name="IDNCC" ColumnName="IDNCC" />
+                <ScalarProperty Name="IDHH" ColumnName="IDHH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_NHOMHH">
+            <EntityTypeMapping TypeName="KHOHANG.tb_NHOMHH">
+              <MappingFragment StoreEntitySet="tb_NHOMHH">
+                <ScalarProperty Name="TENNHOMHH" ColumnName="TENNHOMHH" />
+                <ScalarProperty Name="IDNHOM" ColumnName="IDNHOM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_TONKHO">
+            <EntityTypeMapping TypeName="KHOHANG.tb_TONKHO">
+              <MappingFragment StoreEntitySet="tb_TONKHO">
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="IDHH" ColumnName="IDHH" />
+                <ScalarProperty Name="IDKHO" ColumnName="IDKHO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
